@@ -93,3 +93,17 @@ PostgreSQL Database
 * File Uploads
 * Deployment on Cloud Platforms
 * Mobile Application Support
+
+## Live Demo
+
+### Frontend
+
+https://eprana-hospital-management-system.vercel.app
+
+### Backend API
+
+https://eprana-hospital-management-system.onrender.com
+
+### Swagger Documentation
+
+https://eprana-hospital-management-system.onrender.com/swagger-ui/index.html
