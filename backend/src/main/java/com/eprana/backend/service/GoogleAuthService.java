@@ -56,7 +56,7 @@ public class GoogleAuthService {
         GoogleIdToken.Payload payload =
                 idToken.getPayload();
 
-      
+
 
         String email =
                 payload.getEmail();
