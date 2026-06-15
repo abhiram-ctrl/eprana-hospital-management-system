@@ -4,6 +4,8 @@ import com.eprana.backend.enums.Role;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Data
 @Table(name = "users")
@@ -19,4 +21,9 @@ public class User {
 @Enumerated(EnumType.STRING)
     private Role role;
     private String password;
+
+    //email otp verification
+    private String otp;
+    private LocalDateTime otpExpiry;
+    private boolean emailVerified;
 }

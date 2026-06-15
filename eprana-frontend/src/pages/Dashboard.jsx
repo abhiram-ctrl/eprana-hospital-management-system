@@ -18,30 +18,56 @@ const Dashboard = () => {
     totalReminders: 0,
   });
 
-  const [activities, setActivities] = useState([]);
+  // const [activities, setActivities] = useState([]);
 
-  useEffect(() => {
-    loadStats();
-    loadActivities();
-  }, []);
+ useEffect(() => {
 
-  const loadStats = async () => {
-    try {
-      const res = await API.get("/dashboard/stats");
-      setStats(res.data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  if (
+      role === "ADMIN" ||
+      role === "DOCTOR"
+  ) {
+      loadStats();
+  }
 
-  const loadActivities = async () => {
-    try {
-      const res = await API.get("/dashboard/recent");
-      setActivities(res.data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  // loadActivities();
+
+}, []);
+
+const loadStats = async () => {
+
+  if (
+      role !== "ADMIN" &&
+      role !== "DOCTOR"
+  ) {
+      return;
+  }
+
+  try {
+
+    const res =
+      await API.get(
+        "/dashboard/stats"
+      );
+
+    setStats(res.data);
+
+  } catch (err) {
+
+    console.error(
+      err
+    );
+
+  }
+};
+
+  // const loadActivities = async () => {
+  //   try {
+  //     const res = await API.get("/dashboard/recent");
+  //     setActivities(res.data);
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // };
 
   const cards = [
     {
@@ -111,6 +137,7 @@ const Dashboard = () => {
           </p>
         </div>
 
+        {(isAdmin || isDoctor) && (
         <div className="grid md:grid-cols-3 gap-6">
 
           {cards.map((card) => (
@@ -157,9 +184,33 @@ const Dashboard = () => {
 
           ))}
 
-        </div>
+        </div> )}
 
-        <div
+       {isPatient && (
+
+  <div className="bg-white rounded-2xl shadow p-6 mt-6">
+
+    <h2 className="text-2xl font-bold mb-4">
+      Patient Overview
+    </h2>
+
+    <ul className="space-y-2">
+
+      <li>✓ Manage Appointments</li>
+
+      <li>✓ View Prescriptions</li>
+
+      <li>✓ Medication Reminders</li>
+
+      <li>✓ Personal Health Records</li>
+
+    </ul>
+
+  </div>
+
+)}
+
+        {/* <div
           className="
           bg-white
           rounded-2xl
@@ -203,7 +254,7 @@ const Dashboard = () => {
 
           )}
 
-        </div>
+        </div> */}
 
         {isAdmin && (
 

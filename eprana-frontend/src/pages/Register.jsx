@@ -26,6 +26,18 @@ const Register = () => {
 
     e.preventDefault();
 
+    const passwordRegex =
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
+
+if (!passwordRegex.test(form.password)) {
+
+  alert(
+    "Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number and one special character"
+  );
+
+  return;
+}
+
     try {
 
       await API.post(
@@ -78,6 +90,15 @@ const Register = () => {
           className="w-full border p-2 mb-4"
           onChange={handleChange}
         />
+
+<p className="text-sm text-gray-500 mb-4">
+  Password must contain:
+  8+ characters,
+  uppercase,
+  lowercase,
+  number,
+  special character
+</p>
 
         <select
           name="role"

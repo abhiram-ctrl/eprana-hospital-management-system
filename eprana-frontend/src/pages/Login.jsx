@@ -3,7 +3,7 @@ import API from "../api/axios";
 import { useNavigate, Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import toast from "react-hot-toast";
-
+import { GoogleLogin } from "@react-oauth/google";
 const Login = () => {
 
   const navigate = useNavigate();
@@ -83,6 +83,60 @@ localStorage.setItem(
         >
           Login
         </button>
+        
+
+<div className="mt-4">
+
+  <GoogleLogin
+   onSuccess={async (credentialResponse) => {
+
+  try {
+
+    const response = await API.post(
+      "/auth/google",
+      {
+        credential:
+          credentialResponse.credential
+      }
+    );
+
+    localStorage.setItem(
+      "token",
+      response.data.token
+    );
+
+    localStorage.setItem(
+      "role",
+      response.data.role
+    );
+
+    alert(
+      "Google Login Success"
+    );
+
+    navigate("/dashboard");
+
+  } catch (error) {
+
+    console.error(error);
+
+    alert(
+      "Google Login Failed"
+    );
+
+  }
+
+}}
+    onError={() => {
+
+      alert(
+        "Google Login Failed"
+      );
+
+    }}
+  />
+
+</div>
 
         <p className="mt-4 text-center">
           No account?
